@@ -7,6 +7,9 @@ uint64_t hache (char* motif, int n);
 uint64_t thache (char* motif, int n, uint64_t hache);
 int rabin_karp (char* motif, char* texte);
 
+const uint64_t base = 256; // Base pour le hachage
+const uint64_t base = 1869461003; // Base pour le hachage
+
 uint64_t puissance(uint64_t x, uint64_t n, uint64_t m){
     if (n==0){
         return 1;
@@ -29,7 +32,9 @@ int rabin_karp (char* motif, char* texte){
     uint64_t p_hache = hache(texte, n);
     int i = 0;
     while (texte[i] != '\0'){
-        if (i != 0)
+        if (i != 0){
+            p_hache = thache(texte + i, n, p_hache);
+        }
         if (base_hache == p_hache){
             int j = 0;
             while (motif[j] != '\0' && texte[i + j] != '\0' && motif[j] == texte[i + j]) {
